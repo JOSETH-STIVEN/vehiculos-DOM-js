@@ -110,3 +110,9 @@ h2 {
 .btn-danger:hover {
     background-color: #cc003e;
 }
+.title-tarjeta{
+    padding: 10px 0;
+}
+ #cont-cards{
+    padding: 0 90px;
+ }
