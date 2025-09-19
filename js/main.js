@@ -57,4 +57,18 @@ function createVehiculoCard(){
 
     const boton2 = createElement('button');
     boton2.classList.add('btn', 'btn-danger');
+
+    contenedor.appendChild(col);
+    col.appendChild(card);
+
+    card.appendChild(img);
+
+    cuerpoTarjeta.appendChild(h3);
+    cuerpoTarjeta.appendChild(h4);
+    cuerpoTarjeta.appendChild(segundoH4);
+    cuerpoTarjeta.appendChild(tercerH4);
+    cuerpoTarjeta.appendChild(h2);
+
+    contenedoresBtn.appendChild(boton1);
+    contenedoresBtn.appendChild(boton2);
 };
