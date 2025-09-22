@@ -115,4 +115,16 @@ h2 {
 }
  #cont-cards{
     padding: 0 90px;
- }
+}
+
+#btn-carrito{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    border-radius: 50%;
+    border: none;
+    background: #00ffd5;
+    color: #000;
+}
