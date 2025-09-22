@@ -5,6 +5,7 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 1rem;
+    overflow-x: hidden;
 }
 
 h2 {
@@ -128,13 +129,15 @@ h2 {
     background: #00ffd5;
     color: #000;
     font-size: 25px;
+    z-index: 999;
 }
 
 #cont-carrito{
-    width: 30%;
+    width: 20%;
     height: 100vh;
     position: absolute;
-    right: 0;
+    top: 0;
+    right: -580px;
     padding: 40px;
     z-index: 1;
     border: 1px solid #00ffd5;
@@ -145,7 +148,7 @@ h2 {
 }
 
 #cont-carrito .card-img{
-    width: 150px;
+    width: 100px;
 }
 
 #cont-carrito .product-card .button{
@@ -153,3 +156,10 @@ h2 {
     justify-content: space-between;
     align-items: first baseline ;
 }
+
+#cont-carrito.active{
+    right: 0;
+    z-index: 1;
+    transition: .5s;
+}
+

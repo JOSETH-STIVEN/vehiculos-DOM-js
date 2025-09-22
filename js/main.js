@@ -39,7 +39,7 @@ form.addEventListener('submit', (e) => {
 
 function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo) {
 
-    const fotoFinal= url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHXhZO09qHPZjTjG7cWq3MhtxgulVpuQ7B-w&s';
+    const fotoFinal = url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHXhZO09qHPZjTjG7cWq3MhtxgulVpuQ7B-w&s';
 
     const col = document.createElement('div');
     col.classList.add('col-md-6', 'item-vehiculo');
@@ -139,8 +139,20 @@ function eventsToVehiculo(nuevaTrajeta) {
     });
 
     const shopBtn = nuevaTrajeta.querySelector('.btn-success');
-    shopBtn.addEventListener('click', () =>{
+    shopBtn.addEventListener('click', () => {
         alert('Haz comprado nuestro vehiculo');
     });
 };
+
+
+const btnCarrito = document.getElementById('btn-carrito');
+const contenedorCarrito = document.getElementById('cont-carrito');
+
+
+btnCarrito.addEventListener('click', () => {
+    contenedorCarrito.classList.toggle('active');
+});
+
+
+
 
