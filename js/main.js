@@ -1,16 +1,14 @@
 
-
 const contenedor = document.getElementById('Contenedor-tarjetas');
-
 const form = document.getElementById('vehiculo-form');
-
-
-const addBtn = document.getElementById('agregar-vehiculo');
+const btnCarrito = document.getElementById('btn-carrito');
+const contenedorCarrito = document.getElementById('cont-carrito');
+const carrito = document.querySelector('.cont-productos');
+const total = document.getElementById('total');
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Captura de valores
     let valorFoto = document.getElementById('foto-input').value.trim();
     const valorNombre = document.getElementById('nombre-input').value.trim();
     const valorMarca = document.getElementById('marca-input').value.trim();
@@ -18,27 +16,23 @@ form.addEventListener('submit', (e) => {
     const valorPrecio = document.getElementById('precio-input').value.trim();
     const valorModelo = document.getElementById('modelo-input').value.trim();
 
-    // Imagen por defecto
     if (valorFoto === '') {
         valorFoto = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHXhZO09qHPZjTjG7cWq3MhtxgulVpuQ7B-w&s';
+        alert('Gracias por confiar en nosotros.');
     }
 
-    // Validación
     if (valorNombre === '' || valorMarca === '' || valorModelo === '' || valorKm === '' || valorPrecio === '') {
         alert("Por favor, completa todos los campos obligatorios.");
         return;
     }
 
-    // Crear tarjeta y agregarla
     const nuevaTarjeta = createVehiculoCard(valorFoto, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo);
     contenedor.appendChild(nuevaTarjeta);
     eventsToVehiculo(nuevaTarjeta);
     form.reset();
 });
 
-
 function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo) {
-
     const fotoFinal = url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHXhZO09qHPZjTjG7cWq3MhtxgulVpuQ7B-w&s';
 
     const col = document.createElement('div');
@@ -59,13 +53,12 @@ function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, 
     h3.textContent = valorNombre;
 
     const h4 = document.createElement('h4');
-    h4.classList.add('card-sibtitle', 'text-muted');
+    h4.classList.add('card-subtitle', 'text-muted');
     h4.textContent = valorMarca;
 
     const segundoH4 = document.createElement('h4');
     segundoH4.classList.add('card-text');
     segundoH4.textContent = valorModelo;
-
 
     const tercerH4 = document.createElement('h4');
     tercerH4.classList.add('card-text');
@@ -74,7 +67,6 @@ function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, 
     const h2 = document.createElement('h2');
     h2.classList.add('text-success');
     h2.textContent = valorPrecio;
-
 
     const contenedoresBtn = document.createElement('div');
     contenedoresBtn.classList.add('d-flex', 'justify-content-between', 'mt-3');
@@ -88,11 +80,9 @@ function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, 
     boton2.textContent = 'Eliminar';
 
     col.appendChild(card);
-
     card.appendChild(img);
     card.appendChild(cuerpoTarjeta);
     card.appendChild(contenedoresBtn);
-
 
     cuerpoTarjeta.appendChild(h3);
     cuerpoTarjeta.appendChild(h4);
@@ -104,55 +94,79 @@ function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, 
     contenedoresBtn.appendChild(boton2);
 
     return col;
-};
-
-
-function addVehiculoCard(event) {
-    addBtn.addEventListener('click', () => {
-        const valorFoto = document.getElementById('foto-input').value;
-        const valorNombre = document.getElementById('nombre-input').value;
-        const valorMarca = document.getElementById('marca-input').value;
-        const valorKm = document.getElementById('kilometraje-input').value;
-        const valorPrecio = document.getElementById('precio-input').value;
-        const valorModelo = document.getElementById('modelo-input').value;
-
-        if (valorNombre == "" || valorMarca == "" || valorModelo == "" || valorKm == "" || valorPrecio == "") {
-            alert("Por favor es obligatorio llenar todos los campos que estan en la interfaz")
-        } else {
-            const nuevaTrajeta = createVehiculoCard(valorFoto, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo);
-            contenedor.appendChild(nuevaTrajeta);
-
-            eventsToVehiculo(nuevaTrajeta)
-
-            form.reset();
-        }
-    });
 }
-addVehiculoCard();
 
-
-function eventsToVehiculo(nuevaTrajeta) {
-    const deleteBtn = nuevaTrajeta.querySelector('.btn-danger');
+function eventsToVehiculo(nuevaTarjeta) {
+    const deleteBtn = nuevaTarjeta.querySelector('.btn-danger');
+    const shopBtn = nuevaTarjeta.querySelector('.btn-success');
 
     deleteBtn.addEventListener('click', () => {
-        nuevaTrajeta.remove();
+        nuevaTarjeta.remove();
     });
 
-    const shopBtn = nuevaTrajeta.querySelector('.btn-success');
     shopBtn.addEventListener('click', () => {
-        alert('Haz comprado nuestro vehiculo');
+        const imgSrc = nuevaTarjeta.querySelector('img').src;
+        const nombre = nuevaTarjeta.querySelector('.card-title').textContent;
+        const marca = nuevaTarjeta.querySelector('.card-subtitle').textContent;
+        const precio = nuevaTarjeta.querySelector('.text-success').textContent;
+
+        const tarjetaCarrito = createProducts(imgSrc, nombre, marca, precio);
+        carrito.appendChild(tarjetaCarrito);
     });
-};
-
-
-const btnCarrito = document.getElementById('btn-carrito');
-const contenedorCarrito = document.getElementById('cont-carrito');
-
+}
 
 btnCarrito.addEventListener('click', () => {
     contenedorCarrito.classList.toggle('active');
 });
 
+function createProducts(imgSrc, nombre, marca, precio) {
+    const tarjeta = document.createElement('div');
+    tarjeta.classList.add('product-card');
 
+    const fila = document.createElement('div');
+    fila.classList.add('row');
 
+    const col1 = document.createElement('div');
+    col1.classList.add('col-md-4');
 
+    const imagen = document.createElement('img');
+    imagen.classList.add('card-img');
+    imagen.setAttribute('src', imgSrc);
+
+    const col2 = document.createElement('div');
+    col2.classList.add('col-md-8');
+
+    const h2 = document.createElement('h2');
+    h2.textContent = nombre;
+
+    const h3 = document.createElement('h3');
+    h3.textContent = marca;
+
+    const contPrecioBoton = document.createElement('div');
+    contPrecioBoton.classList.add('button');
+
+    const h4 = document.createElement('h4');
+    h4.textContent = precio;
+
+    const btnEliminar = document.createElement('button');
+    btnEliminar.classList.add('btn-danger', 'btn');
+    btnEliminar.textContent = 'x';
+
+    btnEliminar.addEventListener('click', () => {
+        tarjeta.remove();
+    });
+
+    tarjeta.appendChild(fila);
+    fila.appendChild(col1);
+    fila.appendChild(col2);
+    col1.appendChild(imagen);
+    col2.appendChild(h2);
+    col2.appendChild(h3);
+    col2.appendChild(contPrecioBoton);
+    contPrecioBoton.appendChild(h4);
+    contPrecioBoton.appendChild(btnEliminar);
+
+    return tarjeta;
+}
+
+ 
