@@ -127,4 +127,29 @@ h2 {
     border: none;
     background: #00ffd5;
     color: #000;
+    font-size: 25px;
+}
+
+#cont-carrito{
+    width: 30%;
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    padding: 40px;
+    z-index: 1;
+    border: 1px solid #00ffd5;
+}
+#cont-carrito .product-card{
+    border: 1px solid #00ffd5;
+    border-radius: 8px;
+}
+
+#cont-carrito .card-img{
+    width: 150px;
+}
+
+#cont-carrito .product-card .button{
+    display: flex;
+    justify-content: space-between;
+    align-items: first baseline ;
 }
