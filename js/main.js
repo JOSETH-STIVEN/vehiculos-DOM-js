@@ -4,7 +4,9 @@ const form = document.getElementById('vehiculo-form');
 const btnCarrito = document.getElementById('btn-carrito');
 const contenedorCarrito = document.getElementById('cont-carrito');
 const carrito = document.querySelector('.cont-productos');
-const total = document.getElementById('total');
+const ValorTotal = document.getElementById('total');
+let total = 0;
+let resta = 0;
 
 form.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -102,6 +104,7 @@ function eventsToVehiculo(nuevaTarjeta) {
 
     deleteBtn.addEventListener('click', () => {
         nuevaTarjeta.remove();
+        
     });
 
     shopBtn.addEventListener('click', () => {
@@ -112,6 +115,9 @@ function eventsToVehiculo(nuevaTarjeta) {
 
         const tarjetaCarrito = createProducts(imgSrc, nombre, marca, precio);
         carrito.appendChild(tarjetaCarrito);
+
+        total = total + parseInt(precio);
+        ValorTotal.textContent = total;
     });
 }
 
