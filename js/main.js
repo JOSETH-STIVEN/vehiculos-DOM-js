@@ -104,7 +104,7 @@ function eventsToVehiculo(nuevaTarjeta) {
 
     deleteBtn.addEventListener('click', () => {
         nuevaTarjeta.remove();
-        
+
     });
 
     shopBtn.addEventListener('click', () => {
@@ -160,6 +160,9 @@ function createProducts(imgSrc, nombre, marca, precio) {
 
     btnEliminar.addEventListener('click', () => {
         tarjeta.remove();
+        const precio = tarjeta.querySelector('h4').textContent;
+        total = total - parseInt(precio);
+        ValorTotal.textContent = total;
     });
 
     tarjeta.appendChild(fila);
@@ -175,4 +178,3 @@ function createProducts(imgSrc, nombre, marca, precio) {
     return tarjeta;
 }
 
- 
