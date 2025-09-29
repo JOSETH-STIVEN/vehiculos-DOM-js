@@ -28,11 +28,34 @@ form.addEventListener('submit', (e) => {
         return;
     }
 
+     const vehiculos = {
+        foto : valorFoto,
+        nombre : valorNombre,
+        marca: valorMarca,
+        modelo: valorModelo,
+        kilometraje: valorKm,
+        precio: valorPrecio
+    };
+
+    const vehiculosGuardados = JSON.parse(localStorage.getItem('vehiculos')) || [];
+    
+    vehiculosGuardados.push(vehiculos);
+
+    localStorage.setItem('vehiculos', JSON.stringify(vehiculosGuardados));
+
+
     const nuevaTarjeta = createVehiculoCard(valorFoto, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo);
     contenedor.appendChild(nuevaTarjeta);
     eventsToVehiculo(nuevaTarjeta);
     form.reset();
+
+   
+    
 });
+
+// document.addEventListener('DOMContentLoaded', () =>{
+
+// })
 
 function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo) {
     const fotoFinal = url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHXhZO09qHPZjTjG7cWq3MhtxgulVpuQ7B-w&s';
@@ -103,8 +126,24 @@ function eventsToVehiculo(nuevaTarjeta) {
     const shopBtn = nuevaTarjeta.querySelector('.btn-success');
 
     deleteBtn.addEventListener('click', () => {
-        nuevaTarjeta.remove();
+        const nombre = nuevaTarjeta.querySelector('.card-title').textContent;
+        const marca = nuevaTarjeta.querySelector('.card-subtitle').textContent;
+        const modelo = nuevaTarjeta.querySelectorAll('.card-text')[0].textContent;
+        const kilometraje = nuevaTarjeta.querySelectorAll('.card-text')[1].textContent;
+        const precio = nuevaTarjeta.querySelector('.text-success').textContent;
 
+        let vehiculos = JSON.parse(localStorage.getItem('vehiculos')) || [];
+
+        vehiculos = vehiculos.filter(v => {
+            return !(v.nombre === nombre &&
+                     v.marca === marca &&
+                     v.modelo === modelo &&
+                     v.kilometraje === kilometraje &&
+                     v.precio === precio);
+        });
+
+        localStorage.setItem('vehiculos', JSON.stringify(vehiculos));
+        nuevaTarjeta.remove();
     });
 
     shopBtn.addEventListener('click', () => {
@@ -112,6 +151,11 @@ function eventsToVehiculo(nuevaTarjeta) {
         const nombre = nuevaTarjeta.querySelector('.card-title').textContent;
         const marca = nuevaTarjeta.querySelector('.card-subtitle').textContent;
         const precio = nuevaTarjeta.querySelector('.text-success').textContent;
+
+        const producto = { imgSrc, nombre, marca, precio };
+        let carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+        carritoGuardado.push(producto);
+        localStorage.setItem('carrito', JSON.stringify(carritoGuardado));
 
         const tarjetaCarrito = createProducts(imgSrc, nombre, marca, precio);
         carrito.appendChild(tarjetaCarrito);
@@ -177,4 +221,39 @@ function createProducts(imgSrc, nombre, marca, precio) {
 
     return tarjeta;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const vehiculosGuardados = JSON.parse(localStorage.getItem('vehiculos')) || [];
+
+    vehiculosGuardados.forEach(vehiculo => {
+        const tarjeta = createVehiculoCard(
+            vehiculo.foto,
+            vehiculo.nombre,
+            vehiculo.marca,
+            vehiculo.kilometraje,
+            vehiculo.precio,
+            vehiculo.modelo
+        );
+
+        contenedor.appendChild(tarjeta);
+        eventsToVehiculo(tarjeta);
+    });
+});
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    carritoGuardado.forEach(producto => {
+        const tarjetaCarrito = createProducts(producto.imgSrc, producto.nombre, producto.marca, producto.precio);
+        carrito.appendChild(tarjetaCarrito);
+
+        total += parseInt(producto.precio);
+    });
+
+    ValorTotal.textContent = total;
+});
+
+
 
