@@ -1,0 +1,66 @@
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+h1 {
+    color: #00f5d4; 
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+#tabla-carros {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+#tabla-carros td,
+#tabla-carros th {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #333;
+}
+
+#tabla-carros tr:first-child {
+    background: linear-gradient(90deg, #7f5af0, #00f5d4); 
+    font-weight: bold;
+    color: #000;
+}
+
+#tabla-carros tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+
+#tabla-carros img {
+    width: 100px;
+    border-radius: 6px;
+}
+
+
+ .btn-carro {
+    display: inline-block;
+    margin: 20px auto;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #00f5d4, #7f5af0);
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(127, 90, 240, 0.5);
+    transition: all 0.3s ease;
+}
+
+.btn-carro:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 255, 255, 0.6);
+}
+
+.center {
+    text-align: center;
+}

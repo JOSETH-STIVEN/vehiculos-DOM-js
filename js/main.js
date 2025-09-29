@@ -8,6 +8,11 @@ const ValorTotal = document.getElementById('total');
 let total = 0;
 let resta = 0;
 
+
+
+
+// Evento que se ejecuta cuando se envía el formulario para agregar un nuevo vehículo
+
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -28,34 +33,39 @@ form.addEventListener('submit', (e) => {
         return;
     }
 
-     const vehiculos = {
-        foto : valorFoto,
-        nombre : valorNombre,
+
+
+
+
+
+    const nuevaTarjeta = createVehiculoCard(valorFoto, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo);
+    const vehiculos = {
+        foto: valorFoto,
+        nombre: valorNombre,
         marca: valorMarca,
         modelo: valorModelo,
         kilometraje: valorKm,
         precio: valorPrecio
     };
-
     const vehiculosGuardados = JSON.parse(localStorage.getItem('vehiculos')) || [];
-    
+
     vehiculosGuardados.push(vehiculos);
 
     localStorage.setItem('vehiculos', JSON.stringify(vehiculosGuardados));
 
-
-    const nuevaTarjeta = createVehiculoCard(valorFoto, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo);
     contenedor.appendChild(nuevaTarjeta);
     eventsToVehiculo(nuevaTarjeta);
     form.reset();
 
-   
-    
+
+
 });
 
-// document.addEventListener('DOMContentLoaded', () =>{
 
-// })
+
+
+
+// Función que crea dinámicamente una tarjeta de vehículo con los datos proporcionados
 
 function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, valorModelo) {
     const fotoFinal = url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHXhZO09qHPZjTjG7cWq3MhtxgulVpuQ7B-w&s';
@@ -121,9 +131,43 @@ function createVehiculoCard(url, valorNombre, valorMarca, valorKm, valorPrecio, 
     return col;
 }
 
+
+// imgSrc, nombre, marca, precio
+
+
+
+// esta funcion lo que hace es que le da interactividad a los botones de eliminar y comprar
 function eventsToVehiculo(nuevaTarjeta) {
     const deleteBtn = nuevaTarjeta.querySelector('.btn-danger');
     const shopBtn = nuevaTarjeta.querySelector('.btn-success');
+
+
+    shopBtn.addEventListener('click', () => {
+        const imgSrc = nuevaTarjeta.querySelector('img').src;
+        const nombre = nuevaTarjeta.querySelector('.card-title').textContent;
+        const marca = nuevaTarjeta.querySelector('.card-subtitle').textContent;
+        const precio = nuevaTarjeta.querySelector('.text-success').textContent;
+        const modelo = nuevaTarjeta.querySelectorAll('.card-text')[0].textContent;
+        const kilometraje = nuevaTarjeta.querySelectorAll('.card-text')[1].textContent;
+
+        const producto = {
+            foto: imgSrc,
+            nombre: nombre,
+            marca: marca,
+            precio: precio,
+            modelo: modelo,
+            kilometraje: kilometraje
+        };
+        let carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+        carritoGuardado.push(producto);
+        localStorage.setItem('carrito', JSON.stringify(carritoGuardado));
+
+        const tarjetaCarrito = createProducts(imgSrc, nombre, marca, modelo, kilometraje, precio);
+        carrito.appendChild(tarjetaCarrito);
+
+        total = total + parseInt(precio);
+        ValorTotal.textContent = total;
+    });
 
     deleteBtn.addEventListener('click', () => {
         const nombre = nuevaTarjeta.querySelector('.card-title').textContent;
@@ -136,32 +180,14 @@ function eventsToVehiculo(nuevaTarjeta) {
 
         vehiculos = vehiculos.filter(v => {
             return !(v.nombre === nombre &&
-                     v.marca === marca &&
-                     v.modelo === modelo &&
-                     v.kilometraje === kilometraje &&
-                     v.precio === precio);
+                v.marca === marca &&
+                v.modelo === modelo &&
+                v.kilometraje === kilometraje &&
+                v.precio === precio);
         });
 
         localStorage.setItem('vehiculos', JSON.stringify(vehiculos));
         nuevaTarjeta.remove();
-    });
-
-    shopBtn.addEventListener('click', () => {
-        const imgSrc = nuevaTarjeta.querySelector('img').src;
-        const nombre = nuevaTarjeta.querySelector('.card-title').textContent;
-        const marca = nuevaTarjeta.querySelector('.card-subtitle').textContent;
-        const precio = nuevaTarjeta.querySelector('.text-success').textContent;
-
-        const producto = { imgSrc, nombre, marca, precio };
-        let carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
-        carritoGuardado.push(producto);
-        localStorage.setItem('carrito', JSON.stringify(carritoGuardado));
-
-        const tarjetaCarrito = createProducts(imgSrc, nombre, marca, precio);
-        carrito.appendChild(tarjetaCarrito);
-
-        total = total + parseInt(precio);
-        ValorTotal.textContent = total;
     });
 }
 
@@ -169,7 +195,12 @@ btnCarrito.addEventListener('click', () => {
     contenedorCarrito.classList.toggle('active');
 });
 
-function createProducts(imgSrc, nombre, marca, precio) {
+
+
+
+
+//  Esta función crea dinámicamente una tarjeta de producto para mostrarla en el carrito de compras
+function createProducts(imgSrc, nombre, marca, modelo, kilometraje, precio) {
     const tarjeta = document.createElement('div');
     tarjeta.classList.add('product-card');
 
@@ -207,6 +238,10 @@ function createProducts(imgSrc, nombre, marca, precio) {
         const precio = tarjeta.querySelector('h4').textContent;
         total = total - parseInt(precio);
         ValorTotal.textContent = total;
+        const nombre = tarjeta.querySelector('h2').textContent;
+        let carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
+        carritoGuardado = carritoGuardado.filter(producto => producto.nombre !== nombre);
+        localStorage.setItem('carrito', JSON.stringify(carritoGuardado));
     });
 
     tarjeta.appendChild(fila);
@@ -246,7 +281,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
 
     carritoGuardado.forEach(producto => {
-        const tarjetaCarrito = createProducts(producto.imgSrc, producto.nombre, producto.marca, producto.precio);
+
+        const tarjetaCarrito = createProducts(
+            producto.foto,
+            producto.nombre,
+            producto.marca,
+            producto.modelo,
+            producto.kilometraje,
+            producto.precio
+        );
+
         carrito.appendChild(tarjetaCarrito);
 
         total += parseInt(producto.precio);
