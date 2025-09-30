@@ -7,7 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         const tdImagen = document.createElement('td');
-        tdImagen.textContent = vehiculo.foto;
+        const img = document.createElement('img');
+        img.src= vehiculo.foto;
+        img.style.width= '100px';
+        tdImagen.appendChild(img);
 
         const tdNombre = document.createElement("td");
         tdNombre.textContent = vehiculo.nombre;

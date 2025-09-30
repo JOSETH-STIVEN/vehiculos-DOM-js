@@ -6,44 +6,51 @@ body {
     margin: 0;
     padding: 20px;
 }
+
+/* Título principal */
 h1 {
     color: #00f5d4; 
     text-align: center;
     margin-bottom: 30px;
 }
 
-
-#tabla-carros {
+/* Estilos para la tabla de productos */
+#tablaProductos {
     width: 100%;
     border-collapse: collapse;
     background-color: #1e1e1e;
     color: #fff;
+    margin-bottom: 30px;
 }
 
-#tabla-carros td,
-#tabla-carros th {
-    padding: 10px;
+/* Celdas y encabezados de la tabla */
+#tablaProductos td,
+#tablaProductos th {
+    padding: 12px;
     text-align: center;
     border: 1px solid #333;
 }
 
-#tabla-carros tr:first-child {
+/* Encabezado de la tabla */
+#tablaProductos tr:first-child {
     background: linear-gradient(90deg, #7f5af0, #00f5d4); 
     font-weight: bold;
     color: #000;
 }
 
-#tabla-carros tr:nth-child(even) {
+/* Filas pares */
+#tablaProductos tr:nth-child(even):not(:first-child) {
     background-color: #2a2a2a;
 }
 
-#tabla-carros img {
+/* Imágenes dentro de la tabla */
+#tablaProductos img {
     width: 100px;
     border-radius: 6px;
 }
 
 
- .btn-carro {
+.btn-carro {
     display: inline-block;
     margin: 20px auto;
     padding: 12px 24px;
