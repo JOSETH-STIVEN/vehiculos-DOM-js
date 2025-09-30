@@ -21,8 +21,7 @@ Dentro del repositorio típicamente encontrarás:
 - `index.html` — página principal con el formulario y sección para mostrar vehículos.
 - `style.css` — estilos visuales del proyecto (layout, colores, espaciados).
 - `script.js` — lógica JavaScript: captura del formulario, creación de objetos de vehículos, renderizado dinámico con DOM.
-- Carpeta `assets` o `img` — si incluyes imágenes o iconos.
-- (Opcional) Otros archivos o carpetas según tu estructura.
+- Carpeta `assets` o `img` .
 
 ---
 
@@ -33,7 +32,7 @@ Dentro del repositorio típicamente encontrarás:
 - **JavaScript (vanilla / puro)**  
 - Manipulación del DOM: `document.createElement`, `appendChild`, `innerHTML`, etc.  
 - Eventos: `submit`, `click`, `change`  
-- (Opcional) Validaciones de formulario, almacenamiento en memoria (o localStorage si lo usaste)
+- Validaciones de formulario, almacenamiento en memoria localStorage.
 
 ---
 
@@ -56,11 +55,10 @@ index.html
 ---
 
 
-### Contacto y redes socilaes
+## 📬 Contacto y Redes Sociales
+
 ¿Tienes dudas o quieres colaborar? Aquí puedes encontrarme:
 
-💻 GitHub : https://github.com/JOSETH-STIVEN/
-
-💼 LinkedIn : https://www.linkedin.com/in/stiven-aguilar-19275b368/
-
-📧 Correo: stivenaguilar10288@gmail.com
+- 💻 [GitHub](https://github.com/JOSETH-STIVEN)
+- 💼 [LinkedIn](https://www.linkedin.com/in/stiven-aguilar-19275b368/)
+- 📧 Correo: [stivenaguilar10288@gmail.com](mailto:stivenaguilar10288@gmail.com)
